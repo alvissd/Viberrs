@@ -18,6 +18,6 @@ from django.contrib import admin
 from music import urls
 
 urlpatterns = [
-    url(r'^',include('music.urls')),
+    url(r'^music/',include('music.urls')),
     url(r'^admin/', admin.site.urls),
 ]
