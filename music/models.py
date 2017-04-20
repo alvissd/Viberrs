@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+from django.core.urlresolvers import reverse
+
 
 from django.db import models
 
@@ -7,6 +9,10 @@ class Album(models.Model):
     album_description = models.CharField(max_length=200)
     album_artist = models.CharField(max_length=200)
     album_logo = models.CharField(max_length=1000)
+
+    def get_absolute_url(self):
+        return reverse('music:detail',kwargs={'pk':self.pk})
+
     def __str__(self):
         return self.album_title+" by "+self.album_artist
     

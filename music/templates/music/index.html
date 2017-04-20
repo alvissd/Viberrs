@@ -1,65 +1,24 @@
-{% load staticfiles %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'music/css/bootstrap.css' %}" />
-
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-				<span class="icon-bar"></span>	
-                <span class="icon-bar"></span>	
-                <span class="icon-bar"></span>	
-    		</button>
-
-            <a class="navbar-brand" href="{% url 'music:index' %}">Viberr</a>
-        </div>
-
-        <!-- Items on Navbar -->
-        <div class="collapse navbar-collapse" id="topNavBar">
-            <ul class="nav navbar-nav">
-                <li class="">
-                    <a href="{% url 'music:index' %}">
-                        <span class="glyphicon glyphicon-cd" aria-hidden="true"></span> &nbsp; Albums
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{% url 'music:index' %}">
-                        <span class="glyphicon glyphicon-music" aria-hidden="true"></span> &nbsp; Songs
-                    </a>
-                </li>
-            </ul>
-
-            <form class="navbar-form navbar-left" role="search" method="get" action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
-            </form>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp; Add Song
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span> &nbsp; Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-{% if all_albums %}
+{% extends "music/base.html" %} {% block title %}Viberr{% endblock%} {% block body %}
 <h3>Here are all my albums</h3>
 <ul>
+    <div class="row">
     {% for album in all_albums %}
-    <li><a href="{% url 'music:detail' album.id %}">{{ album.album_title }}</a></li>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail" >
+                <img src="{{ album.album_logo }}" alt="logo" width="300" height="300">
+                <div class="caption">
+                    <h3>{{ album.album_title }}</h3>
+                    <p>{{album.album_description}}</p>
+                    <p><a href="{% url 'music:detail' album.id %}" class="btn btn-primary" role="button">Go to Album</a> 
+                        <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-star"></span></a>
+                        <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+                    </p>
+                
+                </div>
+            </div>
+        </div>
+        
     {% endfor %}
+    </div>
 </ul>
-{% else %}
-<h3>You don't have any album</h3>
-{% endif %}
+{% endblock%}
