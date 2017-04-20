@@ -2,23 +2,27 @@
 <h3>Here are all my albums</h3>
 <ul>
     <div class="row">
-    {% for album in all_albums %}
+        {% for album in all_albums %}
         <div class="col-sm-6 col-md-4">
-            <div class="thumbnail" >
+            <div class="thumbnail">
                 <img src="{{ album.album_logo }}" alt="logo" width="300" height="300">
                 <div class="caption">
                     <h3>{{ album.album_title }}</h3>
                     <p>{{album.album_description}}</p>
-                    <p><a href="{% url 'music:detail' album.id %}" class="btn btn-primary" role="button">Go to Album</a> 
-                        <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-star"></span></a>
-                        <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-trash"></span></a>
-                    </p>
-                
+                        <a href="{% url 'music:detail' album.id %}" class="btn btn-primary" role="button">Go to Album</a>
+                        <a href="{% url 'music:album_update' album.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <form action="{% url 'music:album_delete' album.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="album_id" value="{{ album.id }}" />
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
                 </div>
             </div>
         </div>
-        
-    {% endfor %}
+
+        {% endfor %}
     </div>
 </ul>
 {% endblock%}
