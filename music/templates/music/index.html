@@ -5,7 +5,7 @@
         {% for album in all_albums %}
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="{{ album.album_logo }}" alt="logo" width="300" height="300">
+                <img src="{{ album.album_logo.url }}" alt="logo" width="300" height="300">
                 <div class="caption">
                     <h3>{{ album.album_title }}</h3>
                     <p>{{album.album_description}}</p>
